@@ -1,0 +1,5 @@
+<h2>Update Shipping Address</h2>
+<%= form_tag "/profile/orders/#{@order.id}", method: :patch do %>
+  <%= select_tag "address_id", options_from_collection_for_select(current_user.addresses, "id", "address") %>
+  <%= submit_tag 'Update Address' %>
+<% end %>
