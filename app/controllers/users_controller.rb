@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :exclude_admin, only: :show
 
   def show
-    @user = current_user
+    @user = User.find(current_user.id)
   end
 
   def new
@@ -11,11 +11,27 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(
+      name: params[:name], 
+      email: params[:email], 
+      password: params[:password]
+    )
     if @user.save
-      session[:user_id] = @user.id
-      flash[:notice] = "Welcome, #{@user.name}!"
-      redirect_to profile_path
+      @address = @user.addresses.create(
+        address: params[:street_address], 
+        city: params[:city], 
+        state: params[:state], 
+        zip: params[:zip], 
+        nickname: "home"
+      )
+      if @address.save
+        session[:user_id] = @user.id
+        flash[:notice] = "Welcome, #{@user.name}!"
+        redirect_to profile_path
+      else
+        generate_flash(@address)
+        render :new
+      end
     else
       generate_flash(@user)
       render :new
@@ -41,9 +57,8 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-
-  def user_params
-    params.require(:user).permit(:name, :address, :city, :state, :zip, :email, :password)
-  end
+  private 
+    def user_params
+      params.permit(:name, :password, :email, :password_confirmation, :city, :state, :zip, :street_address)
+    end
 end
