@@ -1,4 +1,7 @@
-<h1><%= @user.name %></h1>
-<p><%= @user.email %></p>
-<p><%= @user.address %></p>
-<p><%= @user.city %> <%= @user.state %> <%= @user.zip %></p>
+<section id="address-<%= address.id %>">
+  <h2><%= address.nickname %></h2>
+  <p><%= address.address %></p>
+  <p><%= address.city %>, <%= address.state %> <%= address.zip %></p>
+  <%= button_to "Edit", edit_address_path(address), method: :get %>
+  <%= button_to "Delete", delete_address_path(address), method: :delete if !address.has_orders? %>
+</section>
