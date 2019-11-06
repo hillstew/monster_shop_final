@@ -1,0 +1,18 @@
+<%= form_tag "/profile/addresses", method: :post do %>
+  <%= label_tag "Nickname" %>
+  <%= text_field_tag :nickname %>
+
+  <%= label_tag "Street Address" %>
+  <%= text_field_tag :address %>
+
+  <%= label_tag "City" %>
+  <%= text_field_tag :city %>
+
+  <%= label_tag "State" %>
+  <%= text_field_tag :state %>
+
+  <%= label_tag "Zip" %>
+  <%= text_field_tag :zip %>
+
+  <%= submit_tag 'Add Address' %>
+<% end %>

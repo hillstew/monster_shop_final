@@ -1,1 +1,5 @@
-<%= render '/users/address' %>
+<h1><%= @user.name %></h1>
+<p><%= @user.email%></p>
+<%  @user.addresses.each do |address| %>
+  <%= render partial: 'address', locals: { address: address, user: @user } %>
+<% end %>
