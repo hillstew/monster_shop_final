@@ -1,5 +1,11 @@
-<%= render 'address' %>
+<h1><%= @user.name %></h1>
+<p><%= @user.email %></p>
 <%= link_to 'Edit', '/profile/edit' %>
 <%= link_to 'Change Password', '/profile/edit_password' %>
-
 <%= link_to 'My Orders', '/profile/orders' %>
+<%= link_to 'Add new address', '/profile/addresses' %>
+
+
+<%  @user.addresses.each do |address| %>
+  <%= render partial: 'address', locals: { address: address, user: @user } %>
+<% end %>
