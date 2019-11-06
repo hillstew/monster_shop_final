@@ -11,7 +11,7 @@ class AddressesController < ApplicationController
 
   def destroy
     address = Address.find(params[:id])   
-    if address
+    if !address.has_orders?
       address.destroy
     else
       flash[:notice] = "#{address.nickname} can not be deleted!"
